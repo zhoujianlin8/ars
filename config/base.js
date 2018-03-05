@@ -9,6 +9,7 @@ module.exports = {
     webHookToken: '111111',
     gitTemplatePath: '/work/.gitcache',
     templateCachePath: '/work/.template',
+
     uiDistPath: '/work/ui',
     cdnDistPath: '/work/cdn',
     nodeServerDistPath: '/work/server',

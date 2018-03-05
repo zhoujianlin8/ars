@@ -145,7 +145,7 @@ const Hook = {
         }
         const type = query.type || getTypeRelease(body.project);
         if(body.object_kind === 'push'){
-           let res =  doAssert[type] ? await doAssert[type](body,query,ctx) : data.setMsg('type类型不支持');
+            let res =  doAssert[type] ? await doAssert[type](body,query,ctx) : data.setMsg('type类型不支持');
             ctx.body = res;
         }else{
             ctx.body = data.setMsg('类型不支持')

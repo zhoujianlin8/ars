@@ -41,4 +41,3 @@ module.exports = async function (body) {
         return data.setData(res.data);
     }
 };
-
