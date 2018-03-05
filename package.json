@@ -1,0 +1,52 @@
+{
+  "name": "ars",
+  "version": "0.0.1",
+  "description": "koa2",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "mocha",
+    "stop": "node_modules/.bin/pm2 stop ars && node_modules/.bin/pm2 delete ars",
+    "start": "PORT=5100 node_modules/.bin/pm2 start bin/server.js -i true --name ars",
+    "debug": "NODE_ENV=local devdebug bin/server.js --watch={config,app}/{**/*,*}.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "koa2"
+  ],
+  "author": "",
+  "bugs": {
+    "url": ""
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "dependencies": {
+    "@exponent/spawn-async": "^1.2.8",
+    "copy": "^0.3.1",
+    "cross-spawn-async": "^2.2.5",
+    "del": "^3.0.0",
+    "fs-extra": "^5.0.0",
+    "koa": "^2.3.0",
+    "koa-body": "^2.5.0",
+    "koa-ejs": "^4.1.0",
+    "koa-logger": "^3.0.1",
+    "koa-router": "^7.2.1",
+    "koa-send": "^4.1.2",
+    "koa-session": "^5.4.0",
+    "koa2-serve-index": "^2.0.1",
+    "merge": "^1.2.0",
+    "pm2": "^2.6.1",
+    "request": "^2.83.0",
+    "simple-git": "^1.89.0",
+    "ssh2": "^0.5.5",
+    "util.promisify": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "should": "^11.1.0"
+  },
+  "license": "MIT"
+}
