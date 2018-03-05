@@ -48,7 +48,7 @@ const output= Object.assign({},new events(),{
         return config;
     },
     guide(){
-        return Number(Math.random().toString(36).substr(3) + Date.now();
+        return Math.random().toString(36).substr(3) + Date.now();
     },
     getCachePath(dir){
         dir = dir || this.guide();
