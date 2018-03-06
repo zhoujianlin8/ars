@@ -135,10 +135,14 @@ const getTypeRelease = (project = {})=>{
 
 const Hook = {
     async index (ctx){
-        const body = ctx.request.body || {};
+        let body = ctx.request.body || {};
         const query = ctx.query || {};
-        
-        //assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
+        const isGitHub = !!body.payload;
+        if(isGitHub){
+            body = JSON.parse(body.payload);
+        }else{
+            assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
+        }
         body.branch = body.ref.replace(/^refs[\\\/]+heads[\\\/]+/,'');
         body.env = 'dev';
         if(!/^(master|((dev|pre|release)[\\\/]+\d\.\d\.\d)$)/.test(body.branch)){
