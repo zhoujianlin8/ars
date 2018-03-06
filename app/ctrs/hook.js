@@ -161,7 +161,7 @@ const Hook = {
         }else{
             ctx.body = data.setMsg('类型不支持')
         }
-        
+
     }
 };
 module.exports = Hook;

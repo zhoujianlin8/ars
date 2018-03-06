@@ -16,6 +16,11 @@ module.exports = async function (body) {
         return data.setMsg(res.message);
     }else{
         if(await fs.pathExists(path.join(templateDir,'package.json'))){
+            const packageLock = path.join(templateDir,'package-lock.json');
+            //删除会影响下载
+            if(await fs.pathExists(packageLock)){
+                await fs.remove(packageLock)
+            }
             try{
                 await spawn('npm',['install','--production'],{cwd: templateDir})
             }catch (e){
