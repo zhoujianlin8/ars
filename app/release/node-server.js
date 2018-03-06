@@ -33,16 +33,18 @@ module.exports = async function (body) {
         }
 
         const serverPath = path.join(config.nodeServerDistPath,body.project.name);
-        const options =  {cwd: serverPath,env: Object.assign(process.env,{NODE_ENV: body.env,PORT: 5000})};
+        const options =  {cwd: serverPath,env: Object.assign(process.env,{NODE_ENV: body.env})};
         if(await fs.pathExists(path.join(serverPath,'package.json'))){
             try{
                 await spawn('npm',['run','stop'],options)
             }catch(e){
             }
         }
-        await fs.emptyDir(serverPath);
-        await fs.copy(templateDir, serverPath,{overwrite: true});
-        await fs.remove(templateDir);
+        try{
+            await fs.emptyDir(serverPath);
+            await fs.copy(templateDir, serverPath,{overwrite: true});
+            await fs.remove(templateDir);
+        }catch (e){}
         spawn('npm',['run','start'],options);
         return data.setData(res.data);
     }
