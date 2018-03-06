@@ -26,7 +26,6 @@ module.exports = async function (body) {
                 return data.setMsg(error)
             }
         }
-        
         const serverPath = path.join(config.nodeServerDistPath,body.project.name);
         const options =  {cwd: serverPath,env: Object.assign(process.env,{NODE_ENV: body.env,PORT: 5000})};
         if(await fs.pathExists(path.join(serverPath,'package.json'))){
