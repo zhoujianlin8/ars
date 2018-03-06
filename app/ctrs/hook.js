@@ -145,7 +145,7 @@ const Hook = {
             body.project.namespace = repository.full_name.replace(/[\\\/]+[\s\S]*$/g,'');
             body.project.git_http_url = repository.clone_url;
             body.project.ssh_http_url = repository.ssh_url;
-            body.object_kind = ctx.request.headers['X-GitHub-Event'];
+            body.object_kind = ctx.request.headers['x-github-event'];
         }else{
             assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
         }
