@@ -140,6 +140,11 @@ const Hook = {
         const isGitHub = !!body.payload;
         if(isGitHub){
             body = JSON.parse(body.payload);
+            const repository = body.repository || {};
+            body.project = repository;
+            body.project.namespace = repository.full_name.replace(/[\\\/]+[\s\S]*$/g,'');
+            body.project.git_http_url = repository.clone_url;
+            body.project.ssh_http_url = repository.ssh_url;
         }else{
             assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
         }
