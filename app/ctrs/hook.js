@@ -5,6 +5,7 @@
 const doAssert = require('../release/index');
 const config = require('../util/index').config;
 const data = require('../util/data');
+const crypto = require('crypto');
 const assert = require('assert');
 /*
  * {
@@ -132,13 +133,16 @@ const getTypeRelease = (project = {})=>{
     }
     return type
 };
-
+function sign(code,data) {
+    return 'sha1=' + crypto.createHmac('sha1', code).update(data).digest('hex')
+}
 const Hook = {
     async index (ctx){
         let body = ctx.request.body || {};
         const query = ctx.query || {};
         const isGitHub = !!body.payload;
         if(isGitHub){
+            config.webHookToken && assert (ctx.request.headers['x-hub-signature'] === sign(config.webHookToken,body.payload),'token不对');
             body = JSON.parse(body.payload);
             const repository = body.repository || {};
             body.project = repository;
@@ -146,8 +150,9 @@ const Hook = {
             body.project.git_http_url = repository.clone_url;
             body.project.ssh_http_url = repository.ssh_url;
             body.object_kind = ctx.request.headers['x-github-event'];
+
         }else{
-            assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
+            config.webHookToken && assert (ctx.request.headers['x-gitlab-token'] === config.webHookToken,'token不对');
         }
         body.branch = body.ref.replace(/^refs[\\\/]+heads[\\\/]+/,'');
         body.env = 'dev';

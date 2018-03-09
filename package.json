@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@exponent/spawn-async": "^1.2.8",
+    "buffer-equal-constant-time": "^1.0.1",
     "copy": "^0.3.1",
     "cross-spawn-async": "^2.2.5",
     "del": "^3.0.0",
