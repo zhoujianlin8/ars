@@ -6,6 +6,7 @@ const doAssert = require('../release/index');
 const config = require('../util/index').config;
 const data = require('../util/data');
 const crypto = require('crypto');
+const bufferEq = require('bufferEq');
 const assert = require('assert');
 /*
  * {
@@ -136,13 +137,16 @@ const getTypeRelease = (project = {})=>{
 function sign(code,data) {
     return 'sha1=' + crypto.createHmac('sha1', code).update(data).digest('hex')
 }
+function verify(signature,signs) {
+    return bufferEq(Buffer.from(signature), Buffer.from(signs))
+}
 const Hook = {
     async index (ctx){
         let body = ctx.request.body || {};
         const query = ctx.query || {};
         const isGitHub = !!body.payload;
         if(isGitHub){
-            config.webHookToken && assert (ctx.request.headers['x-hub-signature'] === sign(config.webHookToken,body.payload),'token不对');
+            config.webHookToken && assert (verify(ctx.request.headers['x-hub-signature'],sign(config.webHookToken,body.payload)) ,'token不对');
             body = JSON.parse(body.payload);
             const repository = body.repository || {};
             body.project = repository;
