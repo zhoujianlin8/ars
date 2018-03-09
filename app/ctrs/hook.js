@@ -6,7 +6,7 @@ const doAssert = require('../release/index');
 const config = require('../util/index').config;
 const data = require('../util/data');
 const crypto = require('crypto');
-const bufferEq = require('bufferEq');
+const bufferEq = require('buffer-equal-constant-time');
 const assert = require('assert');
 /*
  * {
