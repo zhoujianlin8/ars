@@ -146,7 +146,7 @@ const Hook = {
         const query = ctx.query || {};
         const isGitHub = !!body.payload;
         if(isGitHub){
-            config.webHookToken && assert (verify(ctx.request.headers['x-hub-signature'],sign(config.webHookToken,body.payload)) ,'token不对');
+            config.webHookToken && assert (verify(ctx.request.headers['x-hub-signature'],sign(config.webHookToken,JSON.stringify(ctx.request.body))) ,'token不对');
             body = JSON.parse(body.payload);
             const repository = body.repository || {};
             body.project = repository;
