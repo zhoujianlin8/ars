@@ -135,7 +135,7 @@ const getTypeRelease = (project = {})=>{
     return type
 };
 function sign(code,data) {
-    return 'sha1=' + crypto.createHmac('sha1', code).update(data).digest('hex')
+    return 'sha1=' + crypto.createHmac('sha1', code).update(data,'utf8').digest('hex')
 }
 function verify(signature,signs) {
     return bufferEq(Buffer.from(signature), Buffer.from(signs))
