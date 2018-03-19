@@ -10,5 +10,4 @@ npm run daily|pre|publish
 ###ARS 自动发布系统
 
 
-
 * warn自动创建目录可能有权限问题  保证操作存在且目录有权限  sudo chmod -R 755 /work
