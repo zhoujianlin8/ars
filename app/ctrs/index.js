@@ -10,8 +10,7 @@ const send = require('koa-send');
 const path = require('path');
 const Ctr = {
     async index (ctx){
-        console.log(12111)
-        ctx.body = 'hello world 3233';
+        ctx.body = 'hello world 11';
     },
     async cdn (ctx,next){
         const cpath = ctx.path;

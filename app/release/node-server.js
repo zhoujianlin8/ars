@@ -34,18 +34,35 @@ module.exports = async function (body) {
 
         const serverPath = path.join(config.nodeServerDistPath,body.project.name);
         const options =  {cwd: serverPath,env: Object.assign(process.env,{NODE_ENV: body.env})};
-        if(await fs.pathExists(path.join(serverPath,'package.json'))){
-            try{
-                await spawn('npm',['run','stop'],options)
-            }catch(e){
-            }
-        }
+        const isArs = body.project.name === 'ars';
+        const isDebugger = body.isDebug === 1;
+        //如果是自身
         try{
             await fs.emptyDir(serverPath);
             await fs.copy(templateDir, serverPath,{overwrite: true});
             await fs.remove(templateDir);
         }catch (e){}
-        spawn('npm',['run','start'],options);
+        if(await fs.pathExists(path.join(serverPath,'package.json'))){
+            if(isArs){
+                try{
+                    spawn('npm',['run','restart']);
+                }catch (e){
+                    return data.setMsg('重启失败')
+                }
+                return data.setData(res.data);
+            }
+            try{
+                await spawn('npm',['run','stop'],options);
+            }catch(e){
+            }
+            try{
+                await spawn('npm',['run',isDebugger ? 'debug' : 'start'],options);
+            }catch (e){}
+        }else {
+            return data.setMsg('package.json不存在')
+        }
         return data.setData(res.data);
     }
 };
+
+

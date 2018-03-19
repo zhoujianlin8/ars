@@ -7,6 +7,7 @@
     "test": "mocha",
     "stop": "node_modules/.bin/pm2 stop ars && node_modules/.bin/pm2 delete ars",
     "start": "PORT=5100 node_modules/.bin/pm2 start bin/server.js -i true --name ars",
+    "restart": "npm run stop && npm run start",
     "debug": "PORT=5100 node_modules/.bin/pm2 start bin/server.js --node-args=\"--inspect\" --name ars --watch"
   },
   "repository": {
