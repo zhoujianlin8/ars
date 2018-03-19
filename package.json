@@ -7,7 +7,7 @@
     "test": "mocha",
     "stop": "node_modules/.bin/pm2 stop ars && node_modules/.bin/pm2 delete ars",
     "start": "PORT=5100 node_modules/.bin/pm2 start bin/server.js -i true --name ars",
-    "debug": "NODE_ENV=local devdebug bin/server.js --watch={config,app}/{**/*,*}.js"
+    "debug": "PORT=5100 node_modules/.bin/pm2 start bin/server.js --node-args=\"--inspect\" --name ars --watch"
   },
   "repository": {
     "type": "git",

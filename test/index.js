@@ -13,7 +13,7 @@ function verify(signature,data) {
     return bufferEq(Buffer.from(signature), Buffer.from(sign(data)))
 }
 
-\
+
 
 //console.log('sha1=' + crypto.createHmac('sha1', code).update(code).digest('hex'));
 
